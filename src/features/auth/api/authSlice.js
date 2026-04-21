@@ -10,7 +10,6 @@ const authSlice = createSlice({
         isRefreshing: false,
     },
     reducers: {
-
     },
     extraReducers: builder => {
         builder.addCase(register.fulfilled, (state, action) => {

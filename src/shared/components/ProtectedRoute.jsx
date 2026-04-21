@@ -1,10 +1,10 @@
 import { Navigate } from "react-router-dom";
-// import { selectisAuth } from "../redux/auth/selectors";
-// import { useSelector } from "react-redux";
+import { selectisAuth } from "../../features/auth/api/selectors";
+import { useSelector } from "react-redux";
 
 const ProtectedRoute = ({ redirectTo = "/login", children }) => {
-    // const isAuth = useSelector(selectisAuth);
-    const isAuth = false
+    const isAuth = useSelector(selectisAuth);
+    console.log("isAuth:", isAuth)
 
     if (!isAuth) {
         return <Navigate to={redirectTo}/>

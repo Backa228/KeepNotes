@@ -7,10 +7,11 @@ import RestrictedRoute from './shared/components/RestrictedRoute'
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { refreshUser } from "./features/auth/api/authApi"
+import ProtectedRoute from "./shared/components/ProtectedRoute"
 
 function App() {
   const dispatch = useDispatch()
-  
+   
   useEffect(() => {
     dispatch(refreshUser())
   }, [dispatch])
@@ -29,9 +30,9 @@ function App() {
           </RestrictedRoute>
         } />
         <Route path="/" element={
-          <RestrictedRoute>
+          <ProtectedRoute>
             <DashboardPage />
-          </RestrictedRoute>
+          </ProtectedRoute>
         } />
       </Routes>
     </>
