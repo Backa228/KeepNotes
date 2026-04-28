@@ -1,5 +1,6 @@
+import { supabase } from "../../../shared/api/supabase";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { supabase } from "../../../shared/api/supabase.js";
+
 
 // LOGIN
 export const logIn = createAsyncThunk(
@@ -40,7 +41,7 @@ export const logOut = createAsyncThunk(
 // REGISTER
 export const register = createAsyncThunk(
   "auth/register",
-  async ({ email, password, birthDate, lastName, firstName }, thunkAPI) => {
+  async ({ email, password, firstName, lastName, birthDate }, thunkAPI) => {
     try {
     const { data, error} = await supabase
         .auth
@@ -48,20 +49,17 @@ export const register = createAsyncThunk(
             email, 
             password,
             options: {
-              data: {
-                birthDate,
-                lastName,
-                firstName,
-              }
-            },
+                data: {
+                    firstName,
+                    lastName,
+                    birthDate,
+                }
+            }, 
         });
-      console.log("birthDate:", birthDate);
-      console.log("lastName:", lastName);
-      console.log("firstName:", firstName);
+
 
       console.log("DATA:", data);
       console.log("ERROR:", error);
-
     
       if (error) throw error;
 
