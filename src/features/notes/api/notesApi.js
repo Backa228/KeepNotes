@@ -65,3 +65,23 @@ export const deleteNote = createAsyncThunk(
         }
     }
 )
+
+//UPDATE NOTE
+export const updateNote = createAsyncThunk(
+    "notes/updateNote",
+    async ({ noteId, title, content }, thunkAPI) => {
+        try {
+            const { data, error } = await supabase
+                .from("notes")
+                .update({ title, content })
+                .eq("id", noteId)
+                .select()
+        
+            if (error) throw error
+            return data[0]
+        }
+        catch (e) {
+            return thunkAPI.rejectedWithValue(e.message)
+        }
+    }
+)
