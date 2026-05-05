@@ -1,6 +1,7 @@
-//READ NOTES
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { supabase } from "../../../shared/api/supabase";
+
+//READ NOTES
 export const fetchNotes = createAsyncThunk(
     "notes/fetchNotes",
     async (_, thunkAPI) => {
