@@ -13,7 +13,7 @@ export const NotesPage = () => {
 
     return (
         <div>
-            <h1>Сторінка нотаток</h1>
+            <h1 className="text-3xl text-yellow-900 font-semibold tracking-tight mb-3">Сторінка нотаток</h1>
             <CreateNote></CreateNote>
             <NotesList></NotesList>
         </div>

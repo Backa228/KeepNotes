@@ -5,8 +5,8 @@ import { useState } from "react"
 export const NoteCard = ({ note }) => {
     const dispatch = useDispatch()
 
-    const [title, setTitle] = useState("")
-    const [content, setContent] = useState("")
+    const [title, setTitle] = useState(note.title)
+    const [content, setContent] = useState(note.content)
 
     const [isEditing, setIsEditing] = useState(false)
 
@@ -22,6 +22,10 @@ export const NoteCard = ({ note }) => {
             content,
         }))
         setIsEditing(false)
+    }
+
+    const handleEdit = () => {
+        setIsEditing(true)
     }
 
     return (
@@ -40,13 +44,14 @@ export const NoteCard = ({ note }) => {
                         placeholder="Вміст"
                     />
 
-                    <button onClick={{handleSave}}>Зберегти</button>
+                    <button onClick={handleSave}>Зберегти</button>
                 </>
             ) : (
                 <>
                     <h3>{note.title}</h3>
-                    <p>{note.content}</p>
-                    <button onCkick={hanleDelete}>Видалити</button>
+                        <p>{note.content}</p>
+                    <button onClick={handleEdit}>Редагувати</button>
+                    <button onClick={hanleDelete}>Видалити</button>
                 </>
             )}
         </div>
