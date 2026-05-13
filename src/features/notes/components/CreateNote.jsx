@@ -26,20 +26,50 @@ export const CreateNote = () => {
     };
 
     return (
-        <div className="flex gap-2 max-w-xl mx-auto my-5 bg-[#FACDD9] p-5 rounded-lg shadow-md hover:shedow-lg">
+        <div className="
+            flex justify-between gap-3
+            max-w-2xl
+            h-14
+            mx-auto
+            mt-8 mb-4
+            bg-white/90
+            py-3 p-5
+            rounded-lg
+            text-[15px]
+            shadow
+            hover:shedow-md
+            hover:bg-white/100
+            transition">
             <input type="text" 
                 placeholder="Заголовок" 
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full outline-none text-lg pl-2 font-medium bg-transparent border-black border-4 rounded-2"/>
+                className="w-full 
+                    outline-none
+                    text-lg pl-2
+                    font-medium
+                    bg-transparent
+                    border-black
+                    border-4
+                    rounded-2"/>
 
             <textarea 
                 placeholder="Вміст" 
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="w-full outline-none text-sg pl-2 bg-transparent border-black border-4 roundet-2"/>
+                className="w-full 
+                    outline-none
+                    bg-transparent
+                    resize-none
+                    hidden"/>
 
-            <button onClick={handleSubmit}>Створити нотатку</button>
+            <button onClick={handleSubmit} className="flex 
+            items-center
+            content-center 
+            rounded
+            px-6 py-2
+            text-[15px]
+            hover:gh-gray-200">Створити нотатку</button>
           
         </div>
     );
