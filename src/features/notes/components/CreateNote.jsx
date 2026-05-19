@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../auth/api/selectors";
 import { createNote } from "../api/notesApi";
+import { Button } from "../../../shared/ui/Button"
 
 export const CreateNote = () => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -10,6 +11,7 @@ export const CreateNote = () => {
 
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
+    const textareaStyles = "w-full outline-none bg-transparent resize-none placeholder:text-gray-500";
     
     const noteRef = useRef(null) 
 
@@ -69,68 +71,41 @@ export const CreateNote = () => {
                             placeholder="Заголовок..." 
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            className="flex-1 outline-none bg-transparent text-lg font-semibold"/>
-
-                         <button onClick={handleSubmit} className="
-                            flex    
-                            shrink-0 
-                            justify-center 
-                            items-center 
-                            rounded 
-                            px-6 py-2 
-                            text-[15px] 
-                            border-2
-                            border-gray-200
-                            hover:bg-gray-200">Створити нотатку</button> 
+                            className="flex-1 outline-none bg-transparent text-lg font-semibold" />
+                        
+                        <Button onClick={(e) => {
+                            e.stopProgramator()
+                            handleSubmit()
+                            }}>Створити нотатку</Button>
                     </div>
 
                     <div>
                          <textarea 
-                            placeholder="Вміст..." 
+                            placeholder="Вміст..."
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
-                            className="flex-1 outline-none bg-transparent resize-none placeholder:text-gray-500"/>
+                            className={textareaStyles} />
 
-                        <button onClick={(e) => {
+                        <Button onClick={(e) => {
                             e.stopPropagation()
                             setIsExpanded(false)
-                        }} className="
-                            flex    
-                            shrink-0 
-                            justify-center 
-                            items-center 
-                            rounded 
-                            px-6 py-2 
-                            text-[15px] 
-                            border-2
-                            border-gray-200
-                            hover:bg-gray-200">Закрити</button> 
+                        }} variant="primary">Закрити</Button> 
                     </div>
                     </>
                 ) : 
                 (
                     <div className="flex justify-between gap-3 w-full items-center"> 
                         <textarea 
-                            row={1}
-                            placeholder="Вміст..." 
+                            rows={1}
+                            placeholder="Вміст..."
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
-                            className="flex-1 outline-none bg-transparent resize-none "/>
+                            className={textareaStyles} />
 
-                        <button onClick={(e) => {
+                        <Button onClick={(e) => {
                             e.stopPropagation()
                             handleSubmit()
-                        }} className="
-                            flex    
-                            shrink-0 
-                            justify-center 
-                            items-center 
-                            rounded 
-                            px-6 py-2 
-                            text-[15px] 
-                            border-2
-                            border-gray-200
-                            hover:bg-gray-200">Створити нотатку</button> 
+                        }}>Створити нотатку</Button> 
                 </div>
 
                 )}
