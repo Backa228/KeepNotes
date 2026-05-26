@@ -16,6 +16,12 @@ body {
   min-height: 100vh;
 }
 
+@layer components {
+  .base-container {
+    @apply max-w-[1296px] mx-auto px-6;
+  }
+}
+
 /* :root {
   --text: #6b6375;
   --text-h: #08060d;

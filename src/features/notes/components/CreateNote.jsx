@@ -74,7 +74,7 @@ export const CreateNote = () => {
                             className="flex-1 outline-none bg-transparent text-lg font-semibold" />
                         
                         <Button onClick={(e) => {
-                            e.stopProgramator()
+                            e.stopPropagation()
                             handleSubmit()
                             }}>Створити нотатку</Button>
                     </div>

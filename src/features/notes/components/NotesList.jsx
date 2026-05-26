@@ -1,17 +1,19 @@
-import { useSelector } from "react-redux"
-import { NoteCard } from "./NoteCard"
-import { selectNotes } from "../api/selectors"
+import { useSelector } from "react-redux";
+import { NoteCard} from "./NoteCard";
+import { selectNotes } from "../api/selectors";
 
 export const NotesList = () => {
-    const notes = useSelector(selectNotes)
+        const notes = useSelector(selectNotes);//стан items = []
+        
+        console.log("NotesList - notes:", notes);
 
-    return (
-        <div>
-            <h2>Список нотаток</h2>
-            {notes.map((note) => (
-                <NoteCard key={note.id} note={note} />
-            ))}
+        return (
+            <div className="base-container">
+                <div className="mx-5 columns-[240px] gap-4">
+                    {notes.map((note) => (
+                        <NoteCard key={note.id} note={note} />
+                    ))}
+                </div>
         </div>
-    )
-
-}
+        );
+};
