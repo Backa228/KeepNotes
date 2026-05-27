@@ -14,6 +14,7 @@ export const CreateNote = () => {
     const textareaStyles = "w-full outline-none bg-transparent resize-none placeholder:text-gray-500";
     
     const noteRef = useRef(null) 
+    const contentRef = useRef(null)
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -28,6 +29,12 @@ export const CreateNote = () => {
             document.removeEventListener("mousedown", handleClickOutside)
         }
     }, [])
+
+    useEffect (() =>{
+        if (isExpanded) {
+            contentRef.current.focus();
+        }
+    }, [isExpanded] ) ;
 
     const handleSubmit = () => {
         if (title.trim() === "" && content.trim() === "") {
@@ -79,12 +86,14 @@ export const CreateNote = () => {
                             }}>Створити нотатку</Button>
                     </div>
 
-                    <div>
+                    <div className="flex flex-col gap-3 justifu-between items-start">
                          <textarea 
                             placeholder="Вміст..."
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
-                            className={textareaStyles} />
+                            row={5}
+                            className={textareaStyles}
+                            ref={contentRef} />
 
                         <Button onClick={(e) => {
                             e.stopPropagation()
