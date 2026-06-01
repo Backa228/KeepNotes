@@ -32,11 +32,15 @@ export const NoteCard = ({ note }) => {
 
     useEffect(() => {
         if (isEditing) {
-            const content = contentRef.current
-            content.focus()
+            requestAnimationFrame(() => {
+                const content = contentRef.current
+                content.focus()
 
-            const lengthContent = content.value.length
-            content.setSelectionRange(lengthContent, lengthContent)
+                const length = content.value.length
+
+                content.setSelectionRange(length, length)
+                content.scrollTop = content.scrollHeight
+            })
         }
     }, [isEditing])
 

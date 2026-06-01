@@ -1,4 +1,4 @@
-export const Button = ({ children, onClick, type = "button", variant = "secondary", className = "" }) => {
+export const Button = ({ children, onClick, type = "button", variant = "secondary", className = "", disabled=false }) => {
     const baseStyles = "flex shrink-0 justify-center rounded text-[15px] border-2 transition items-center"
 
     const variants = {
@@ -7,7 +7,7 @@ export const Button = ({ children, onClick, type = "button", variant = "secondar
         icon: "border-0 p-0 h-9 w-9 rounded-full hover:bg-gray-200",
     }
     return (
-        <button type={type} onClick={onClick} className={`${baseStyles} ${variants[variant]} ${className}`}>
+        <button type={type} onClick={onClick} className={`${baseStyles} ${variants[variant]} ${className}`} disabled={disabled}>
             {children}
         </button>
     )

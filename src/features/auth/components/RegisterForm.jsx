@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectIsLoading } from "../api/selectors";
 import { useState } from "react";
+import { Button } from "../../../shared/ui/Button"
 
 export const RegisterForm = () => {
     const [email, setEmail] = useState("");
@@ -43,9 +44,9 @@ export const RegisterForm = () => {
             <input type="email" name="email" placeholder="Enter your email" required value={email} onChange={(e) => setEmail(e.target.value)} />
             <label htmlFor="password">Password:</label>
             <input type="password" name="password" placeholder="Enter your password" required value={password} onChange={(e) => setPassword(e.target.value)} />
-            <button type="submit" disabled={isLoading}>
+            <Button type="submit" disabled={isLoading}>
                 {isLoading ? "Registering..." : "Register"}
-            </button>
+            </Button>
         </form>
     );
 };

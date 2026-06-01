@@ -1,6 +1,7 @@
 import LoginForm from "../features/auth/components/LoginForm"
 import { useNavigate } from "react-router-dom" 
-    
+import { Button } from "../shared/ui/Button"
+     
 const LoginPage = () => {
     const navigate = useNavigate()
 
@@ -8,7 +9,7 @@ const LoginPage = () => {
         <div>
             <h1>LoginPage</h1>
             <LoginForm />
-            <button onClick={() => navigate("/register")}>Register</button>
+            <Button onClick={() => navigate("/register")}>Register</Button>
         </div>
     )
 }
