@@ -13,6 +13,8 @@ const LoginForm = () => {
     const navigate = useNavigate()
     const isLoading = useSelector(selectIsLoading);
 
+    const inputStyles = "flex-1 outline-none bg-transparent border border-gray-200 w-full p-2 rounded md-3"
+
     const handleSubmit = async(e) => {
         e.preventDefault()
 
@@ -31,23 +33,18 @@ const LoginForm = () => {
 
     return (
         <form onSubmit={handleSubmit} className="
-            flex justify-between gap-3 
+            flex
             flex-col
-            max-w-2xl 
-            mx-auto
-            bg-white/90 
-            py-3 px-5 
-            rounded-lg 
-            text-[15px]
-            text-gray-800
-            shadow-[0_0_12px_rgba(0,0,0,0.2)]
-            hover:bg-white/100 
+            justify-between
+            items-start
+            gap-3
+            w-full
             transition">
             <label htmlFor="email" className="text-gray-900">Email:</label>
-            <input type="email" name="email" placeholder="Enter your email" required value={email} onChange={(e) => setEmail(e.target.value)} className="flex-1 outline-none bg-transparent" />
+            <input type="email" name="email" placeholder="Enter your email" required value={email} onChange={(e) => setEmail(e.target.value)} className={inputStyles} />
             <label htmlFor="password" className="text-gray-900">Password:</label>
-            <input type="password" name="password" placeholder="Enter your password" required value={password} onChange={(e) => setPassword(e.target.value)} className="flex-1 outline-none bg-transparent" />
-            <Button type="submit" disabled={isLoading}>
+            <input type="password" name="password" placeholder="Enter your password" required value={password} onChange={(e) => setPassword(e.target.value)} className={inputStyles} />
+            <Button type="submit" disabled={isLoading} className="w-full">
                 {isLoading ? "Logging in..." : "Log In"}
             </Button>
         </form>

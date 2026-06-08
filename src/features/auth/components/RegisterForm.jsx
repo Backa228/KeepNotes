@@ -16,6 +16,8 @@ export const RegisterForm = () => {
     const navigate = useNavigate();
     const isLoading = useSelector(selectIsLoading);
 
+    const inputStyles = "flex-1 outline-none bg-transparent border border-gray-200 w-full p-2 rounded md-3"
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -32,19 +34,25 @@ export const RegisterForm = () => {
         }
     }
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="
+            flex
+            flex-col
+            justify-between
+            items-start
+            w-full
+            transition">
             <label htmlFor="firstName">First Name:</label>
-            <input type="text" name="firstName" placeholder="Enter your first name" required value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+            <input type="text" name="firstName" placeholder="Enter your first name" required value={firstName} onChange={(e) => setFirstName(e.target.value)} className={inputStyles}  />
             <label htmlFor="lastName">Last Name:</label>
-            <input type="text" name="lastName" placeholder="Enter your last name" required value={lastName} onChange={(e) => setLastName(e.target.value)} />
+            <input type="text" name="lastName" placeholder="Enter your last name" required value={lastName} onChange={(e) => setLastName(e.target.value)} className={inputStyles}/>
             <label htmlFor="birthDate">Birth Date:</label>
             <input type="date" name="birthDate" required value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
             
             <label htmlFor="email">Email:</label>
-            <input type="email" name="email" placeholder="Enter your email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="email" name="email" placeholder="Enter your email" required value={email} onChange={(e) => setEmail(e.target.value)} className={inputStyles}/>
             <label htmlFor="password">Password:</label>
-            <input type="password" name="password" placeholder="Enter your password" required value={password} onChange={(e) => setPassword(e.target.value)} />
-            <Button type="submit" disabled={isLoading}>
+            <input type="password" name="password" placeholder="Enter your password" required value={password} onChange={(e) => setPassword(e.target.value)} className={inputStyles}/>
+            <Button type="submit" disabled={isLoading} className="w-full">
                 {isLoading ? "Registering..." : "Register"}
             </Button>
         </form>

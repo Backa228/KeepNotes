@@ -15,34 +15,25 @@ export const NoteCard = ({ note }) => {
 
     const contentRef = useRef(null)
 
-    useEffect(() => {
-        const handleEsc = (e) => {
-            if (e.key === "Escape") {
-                setIsEditing(false);
-            }
-        }
+    const resizeTextarea = () => {
+        const textarea = contentRef.current
+        
+        if (!textarea) return
+    
+        textarea.style.height = "auto"
 
-        window.addEventListener("keydown", handleEsc);
+        const maxHeight = window.innerHeight * 0.5
+        // textarea.style.height = textarea.scrollHeight + "px";
+        textarea.style.height = `${Math.min(
+            textarea.scrollHeight,
+            maxHeight
+        )}px`;
 
-        return () => {
-            window.removeEventListener("keydown", handleEsc);
-
-        }
-    }, [])
-
-    useEffect(() => {
-        if (isEditing) {
-            requestAnimationFrame(() => {
-                const content = contentRef.current
-                content.focus()
-
-                const length = content.value.length
-
-                content.setSelectionRange(length, length)
-                content.scrollTop = content.scrollHeight
-            })
-        }
-    }, [isEditing])
+        textarea.style.overflowY =
+            textarea.scrollHeight > maxHeight
+                ? "auto"
+                : "hidden";
+    }
 
     const handleDelete = () => {
         dispatch(deleteNote(note.id));
@@ -77,10 +68,11 @@ export const NoteCard = ({ note }) => {
 
                         <textarea 
                             value={content} 
-                            onChange={(e) => setContent(e.target.value)} 
+                            onChange={handleContentChange} 
                             placeholder="Вміст"
                             ref={contentRef}
-                            className="flex-1 outline-none bg-transparent resize-none placeholder:text-gray-500" />
+                            className="outline-none bg-transparent resize-none placeholder:text-gray-500 overflow-y-auto" />
+                        
                         <div className="flex justify-end gap-2">
                             <Button onClick={handleSave}>Зберегти</Button>
                             <Button onClick={() => setIsEditing(false)}>Скасувати</Button>

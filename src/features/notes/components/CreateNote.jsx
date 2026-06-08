@@ -11,10 +11,38 @@ export const CreateNote = () => {
 
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
-    const textareaStyles = "w-full outline-none bg-transparent resize-none placeholder:text-gray-500";
+    const textareaStyles = "w-full outline-none bg-transparent resize-none placeholder:text-gray-500 over-flow-hidden";
     
     const noteRef = useRef(null) 
     const contentRef = useRef(null)
+
+    const resizeTextarea = () => {
+        const textarea = contentRef.current
+        
+        if (!textarea) return
+    
+        textarea.style.height = "auto"
+
+        const maxHeight = window.innerHeight * 0.5
+        // textarea.style.height = textarea.scrollHeight + "px";
+        textarea.style.height = `${Math.min(
+            textarea.scrollHeight,
+            maxHeight
+        )}px`;
+
+        textarea.style.overflowY =
+            textarea.scrollHeight > maxHeight
+                ? "auto"
+                : "hidden";
+    }
+
+    const handleContentChange = (e) => {
+        setContent(e.target.value)
+
+        requestAnimationFrame(() => {
+            resizeTextarea()
+        })
+    }
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -32,7 +60,11 @@ export const CreateNote = () => {
 
     useEffect (() =>{
         if (isExpanded) {
-            contentRef.current.focus();
+            requestAnimationFrame(() => {
+                resizeTextarea()
+                contentRef.current.focus();
+            })
+            
         }
     }, [isExpanded] ) ;
 
@@ -90,8 +122,7 @@ export const CreateNote = () => {
                          <textarea 
                             placeholder="Вміст..."
                             value={content}
-                            onChange={(e) => setContent(e.target.value)}
-                            row={5}
+                            onChange={handleContentChange}
                             className={textareaStyles}
                             ref={contentRef} />
 

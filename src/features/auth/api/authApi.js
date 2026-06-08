@@ -16,7 +16,10 @@ export const logIn = createAsyncThunk(
     
       if (error) throw error;
 
-      return data.user;
+      return {
+        user: data.user,
+        session: data.session,
+      };
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }
@@ -32,7 +35,8 @@ export const logOut = createAsyncThunk(
 
       if (error) throw error;
 
-      return;
+      return
+
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }
@@ -63,7 +67,10 @@ export const register = createAsyncThunk(
     
       if (error) throw error;
 
-      return data.user;
+      return {
+        user: data.user,
+        session: data.session,
+      }
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }
