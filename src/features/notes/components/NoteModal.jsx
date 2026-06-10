@@ -12,6 +12,14 @@ export const NoteModal = ({
     const contentRef = useRef(null);
 
     useEffect(() => {
+        document.body.style.overflow = "hidden"
+
+        return () => {
+           document.body.style.overflow = "auto" 
+        }
+    }, [])
+
+    useEffect(() => {
         const handleEsc = (e) => {
             if (e.key === "Escape") {
                 onClose();
@@ -73,11 +81,11 @@ export const NoteModal = ({
     }, []);
 
     return (
-        <div className="fixed inset-0 z-50 bg-black/40 flex items-start pt-40 justify-center p-4" onClick={onClose
-            // (e) => {
-            // if (e.target === e.currentTarget) {
-            //     setIsEditing(false);
-            // }}
+        <div className="fixed inset-0 z-50 bg-black/40 flex items-start pt-40 justify-center p-4 animate-[fadeInBackdrop_100ms_ease-out]" onClick={
+            (e) => {
+            if (e.target === e.currentTarget) {
+                onClose();
+            }}
         }>
             <div className="w-full max-w-2xl bg-white rounded-lg p-5 flex flex-col gap-4" onClick={(e) => e.stopPropagation()}>
                 <input type="text" 

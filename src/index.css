@@ -18,10 +18,29 @@ body {
 
 @layer components {
   .base-container {
-    @apply max-w-[1296px] mx-auto px-6;
+    @apply max-w-[1296px] mx-auto px-6 flex flex-col items-center;
   }
 }
 
+@keyframes fadeInBackdrop {
+  from {
+    opacity: 0;
+  }
+    to {
+      opacity: 1;
+    }
+  }
+
+@keyframes note0pen {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 /* :root {
   --text: #6b6375;
   --text-h: #08060d;
