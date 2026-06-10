@@ -29,7 +29,7 @@ const LoginPage = () => {
                 transition">
                 <h1 className="text-xl font-bold">Cropiнкa входу</h1>
                 <LoginForm />
-                <Button onClick={() => navigate("/register")}> Register Page </Button>
+                <Button onClick={() => navigate("/register")} className="w-full"> Register Page </Button>
             </div>
         </div>
     )
