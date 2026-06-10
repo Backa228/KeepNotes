@@ -16,7 +16,7 @@ export const RegisterForm = () => {
     const navigate = useNavigate();
     const isLoading = useSelector(selectIsLoading);
 
-    const inputStyles = "flex-1 outline-none bg-transparent border border-gray-200 w-full p-2 rounded md-3"
+    const inputStyles = "flex-1 outline-none bg-transparent border border-gray-200 w-full p-2 rounded mb-3"
     const labelStyles = "text-gray-600 md-1"
 
     const handleSubmit = async (e) => {

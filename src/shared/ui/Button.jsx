@@ -1,5 +1,5 @@
 export const Button = ({ children, onClick, type = "button", variant = "secondary", className = "", disabled=false }) => {
-    const baseStyles = "flex shrink-0 justify-center rounded text-[15px] border-2 transition items-center"
+    const baseStyles = "flex shrink-0 justify-center rounded text-[15px] border transition items-center"
 
     const variants = {
         primary: "bg-blue-500 text-white hover:bg-blue-600 border-blue-200 px-6 py-2",
