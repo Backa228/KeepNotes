@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { deleteNote, updateNote } from "../api/notesApi";
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
 import { Button } from "../../../shared/ui/Button";
 import { MdDelete } from "react-icons/md";
 import { NoteModal } from "./NoteModal";
@@ -37,6 +37,7 @@ export const NoteCard = ({ note }) => {
                     setContent={setContent}
                     onSave={handleSave}
                     onClose={() => setIsEditing(false)}
+                    isEditing={isEditing}
                 />
             )}
             

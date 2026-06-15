@@ -1,7 +1,7 @@
-import { createAsyncThunk } from "@reduxjs/toolkit"
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { supabase } from "../../../shared/api/supabase";
 
-//READ NOTES
+//READ notes
 export const fetchNotes = createAsyncThunk(
     "notes/fetchNotes",
     async (_, thunkAPI) => {
@@ -9,65 +9,66 @@ export const fetchNotes = createAsyncThunk(
             const { data, error } = await supabase
                 .from("notes")
                 .select("*")
-                .order("created_at", { ascending: false })
-            
-            if (error) throw error
-            
-            return data
-         }
+                .order("created_at", { ascending: false });
+                
+            if (error) throw error;
+
+            return data;// [ { id, title, content, user_id }, ... ]
+        }
         catch (e) {
-            return thunkAPI.rejectedWithValue(e.message)
+            return thunkAPI.rejectWithValue(e.message);
         }
     }
-)
+);
 
-//CREATE NOTE
+//CREATE note
 export const createNote = createAsyncThunk(
     "notes/createNote",
     async ({ title, content, userId }, thunkAPI) => {
         try {
             const { data, error } = await supabase
                 .from("notes")
-                .insert([
+                .insert ([
                     {
                         title,
                         content,
                         user_id: userId,
                     },
-                ])
-                .select()
-            
-            if (error) throw error
-            
-            return data[0]
-         }
-        catch (e) {
-            return thunkAPI.rejectedWithValue(e.message)
+                ]) 
+                .select();
+    
+            if (error) throw error;
+
+            return data[0];// { id:3729372, title:список продутів, content:молоко,..., user_id:3729372 } = action.payload
         }
+        catch (e) {
+            return thunkAPI.rejectWithValue(e.message);
+        }
+
     }
 )
 
-//DELETE NOTE
+//DELETE note
 export const deleteNote = createAsyncThunk(
     "notes/deleteNote",
     async (id, thunkAPI) => {
-        try {
+         try {
             const { error } = await supabase
                 .from("notes")
                 .delete()
-                .eq("id", id)
-            
-            if (error) throw error
-            
-            return id
-         }
+                .eq("id", id);
+    
+            if (error) throw error;
+
+            return id;// id = action.payload
+        }
         catch (e) {
-            return thunkAPI.rejectedWithValue(e.message)
+            return thunkAPI.rejectWithValue(e.message);
         }
     }
 )
 
-//UPDATE NOTE
+//UPDATE note
 export const updateNote = createAsyncThunk(
     "notes/updateNote",
     async ({ id, title, content }, thunkAPI) => {
@@ -76,13 +77,13 @@ export const updateNote = createAsyncThunk(
                 .from("notes")
                 .update({ title, content })
                 .eq("id", id)
-                .select()
-        
-            if (error) throw error
-            return data[0]
+                .select();
+                    
+            if (error) throw error;
+            return data[0]; //{ id, title, content } = action.payload
         }
         catch (e) {
-            return thunkAPI.rejectedWithValue(e.message)
+            return thunkAPI.rejectWithValue(e.message);
         }
     }
 )

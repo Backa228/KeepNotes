@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../auth/api/selectors";
 import { createNote } from "../api/notesApi";
-import { Button } from "../../../shared/ui/Button"
+import { Button } from "../../../shared/ui/Button";
 
 export const CreateNote = () => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -11,20 +11,23 @@ export const CreateNote = () => {
 
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
-    const textareaStyles = "w-full outline-none bg-transparent resize-none placeholder:text-gray-500 over-flow-hidden";
-    
-    const noteRef = useRef(null) 
-    const contentRef = useRef(null)
+
+    const noteRef = useRef(null);
+    const contentRef = useRef(null);
+
+    const textareaStyles = "w-full outline-none bg-transparent resize-none placeholder:text-gray-500 overflow-y-hidden";
 
     const resizeTextarea = () => {
-        const textarea = contentRef.current
-        
-        if (!textarea) return
-    
-        textarea.style.height = "auto"
+        const textarea = contentRef.current;
 
-        const maxHeight = window.innerHeight * 0.5
+        if (!textarea) return;
+
+        textarea.style.height = "auto";
+
+        const maxHeight = window.innerHeight * 0.5; 
+
         // textarea.style.height = textarea.scrollHeight + "px";
+        
         textarea.style.height = `${Math.min(
             textarea.scrollHeight,
             maxHeight
@@ -34,45 +37,45 @@ export const CreateNote = () => {
             textarea.scrollHeight > maxHeight
                 ? "auto"
                 : "hidden";
-    }
 
+    };
     const handleContentChange = (e) => {
-        setContent(e.target.value)
+        setContent(e.target.value);
 
         requestAnimationFrame(() => {
-            resizeTextarea()
-        })
-    }
+            resizeTextarea();
+        });
+    };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (noteRef.current && !noteRef.current.contains(event.target)) {
-                setIsExpanded(false)
+                setIsExpanded(false);
             }
-        } 
+        };
 
-        document.addEventListener("mousedown", handleClickOutside)
+        document.addEventListener("mousedown", handleClickOutside);
 
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside)
-        }
-    }, [])
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
-    useEffect (() =>{
-        if (isExpanded) {
+     useEffect(() => {
+        if (isExpanded && contentRef.current) {
             requestAnimationFrame(() => {
-                resizeTextarea()
+                resizeTextarea();
                 contentRef.current.focus();
-            })
-            
+            });  
         }
-    }, [isExpanded] ) ;
+    }, [isExpanded]);
 
     const handleSubmit = () => {
         if (title.trim() === "" && content.trim() === "") {
             alert("Будь ласка, заповніть всі поля");
             return;
         }
+        console.log(user);
         dispatch(createNote({
             title,
             content,
@@ -101,54 +104,56 @@ export const CreateNote = () => {
             text-gray-800
             shadow-[0_0_12px_rgba(0,0,0,0.2)]
             hover:bg-white/100 
-            transition" onClick={() => setIsExpanded(true)}>
+            transition" 
+            onClick={() => setIsExpanded(true)}>
 
                 {isExpanded ? (
                     <>
                     <div className="flex justify-between gap-3 w-full items-center">
                         <input type="text" 
-                            placeholder="Заголовок..." 
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            className="flex-1 outline-none bg-transparent text-lg font-semibold" />
-                        
+                        placeholder="Заголовок" 
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        className="flex-1 outline-none bg-transparent text-lg font-semibold"/>
+
                         <Button onClick={(e) => {
-                            e.stopPropagation()
-                            handleSubmit()
-                            }}>Створити нотатку</Button>
+                        e.stopPropagation();
+                        handleSubmit();
+                        }}>Створити нотатку</Button>
+ 
                     </div>
 
-                    <div className="flex flex-col gap-3 justifu-between items-start">
+                    <div className="flex flex-col gap-3 justify-between items-start" >
                          <textarea 
-                            placeholder="Вміст..."
-                            value={content}
-                            onChange={handleContentChange}
-                            className={textareaStyles}
+                        placeholder="Вміст..." 
+                        value={content}
+                        onChange={handleContentChange}
+                        className={textareaStyles}
                             ref={contentRef} />
-
-                        <Button onClick={(e) => {
-                            e.stopPropagation()
+                <Button onClick={(e) => {
+                            e.stopPropagation();
                             setIsExpanded(false)
-                        }} variant="primary">Закрити</Button> 
+                            }} variant="primary">Закрити
+                        </Button>
                     </div>
                     </>
                 ) : 
                 (
-                    <div className="flex justify-between gap-3 w-full items-center"> 
-                        <textarea 
-                            rows={1}
-                            placeholder="Вміст..."
-                            value={content}
-                            onChange={(e) => setContent(e.target.value)}
-                            className={textareaStyles} />
+                    <div className="flex justify-between gap-3 w-full items-center" > 
+                    <textarea
+                        rows={1} 
+                        placeholder="Вміст..." 
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                        className={textareaStyles}/>
 
-                        <Button onClick={(e) => {
-                            e.stopPropagation()
-                            handleSubmit()
-                        }}>Створити нотатку</Button> 
-                </div>
-
-                )}
+                    <Button onClick={(e) => {
+                        e.stopPropagation();
+                        handleSubmit();
+                        }}>Створити нотатку
+                    </Button>
+                    </div>
+                    )}
         </div>
     );
 };

@@ -1,5 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "../../../shared/ui/Button";
+import { createPortal } from "react-dom";
 
 export const NoteModal = ({ 
     title,
@@ -8,16 +9,18 @@ export const NoteModal = ({
     setContent,
     onSave,
     onClose,
+    isEditing,
  }) => {
     const contentRef = useRef(null);
 
     useEffect(() => {
-        document.body.style.overflow = "hidden"
-
+        document.body.style.overflow = "hidden";
+        
         return () => {
-           document.body.style.overflow = "auto" 
-        }
-    }, [])
+            document.body.style.overflow = "auto";
+        };
+
+    }, []);
 
     useEffect(() => {
         const handleEsc = (e) => {
@@ -64,7 +67,7 @@ export const NoteModal = ({
     };
 
     useEffect(() => {
-        if (contentRef.current) {
+        if (isEditing && contentRef.current) {
             requestAnimationFrame(() => {
                 const content = contentRef.current;
     
@@ -78,16 +81,16 @@ export const NoteModal = ({
                 content.scrollTop = content.scrollHeight;
             });
         }
-    }, []);
+    }, [isEditing]);
 
-    return (
-        <div className="fixed inset-0 z-50 bg-black/40 flex items-start pt-40 justify-center p-4 animate-[fadeInBackdrop_100ms_ease-out]" onClick={
+    return createPortal(
+        <div className="fixed inset-0 z-50 bg-black/40 flex items-start pt-40 justify-center p-4 animate-[fadeInBackdrop_180ms_ease-out]" onClick={
             (e) => {
             if (e.target === e.currentTarget) {
                 onClose();
             }}
         }>
-            <div className="w-full max-w-2xl bg-white rounded-lg p-5 flex flex-col gap-4" onClick={(e) => e.stopPropagation()}>
+            <div className="w-full max-w-2xl bg-white rounded-lg p-5 flex flex-col gap-4 animate-[noteOpen_180ms_ease-out]" onClick={(e) => e.stopPropagation()}>
                 <input type="text" 
                 value={title} 
                 onChange={(e) => setTitle(e.target.value)} 
@@ -106,6 +109,7 @@ export const NoteModal = ({
                     <Button onClick={onSave}>Зберегти</Button> 
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body
     );
  }
