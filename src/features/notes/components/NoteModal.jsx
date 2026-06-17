@@ -67,9 +67,11 @@ export const NoteModal = ({
     };
 
     useEffect(() => {
-        if (isEditing && contentRef.current) {
+        if (!isEditing) return
             requestAnimationFrame(() => {
                 const content = contentRef.current;
+                
+                if(!content) return
     
                 resizeTextarea();
     
@@ -80,7 +82,6 @@ export const NoteModal = ({
                 content.setSelectionRange(length, length);
                 content.scrollTop = content.scrollHeight;
             });
-        }
     }, [isEditing]);
 
     return createPortal(

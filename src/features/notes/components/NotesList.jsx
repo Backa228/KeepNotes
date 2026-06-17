@@ -9,7 +9,7 @@ export const NotesList = () => {
 
         return (
             <div className="base-container">
-                <div className="columns-[240px] gap-4">
+                <div className="columns-[240px] gap-4 w-full">
                     {notes.map((note) => (
                         <NoteCard key={note.id} note={note} />
                     ))}

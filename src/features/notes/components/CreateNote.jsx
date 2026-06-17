@@ -60,15 +60,16 @@ export const CreateNote = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
-
-     useEffect(() => {
-        if (isExpanded && contentRef.current) {
-            requestAnimationFrame(() => {
-                resizeTextarea();
-                contentRef.current.focus();
-            });  
-        }
-    }, [isExpanded]);
+    
+    useEffect(() => {
+        if (!isExpanded)  return
+        requestAnimationFrame(() => {
+            if(!contentRef.current) return
+                
+            resizeTextarea();
+            contentRef.current.focus();  
+        })
+    }, [isExpanded])
 
     const handleSubmit = () => {
         if (title.trim() === "" && content.trim() === "") {

@@ -18,7 +18,7 @@ body {
 
 @layer components {
   .base-container {
-    @apply max-w-[1296px] mx-auto px-6 flex flex-col items-center;
+    @apply max-w-[1296px] mx-auto px-6;
   }
 }
 
