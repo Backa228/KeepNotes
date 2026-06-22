@@ -3,12 +3,14 @@ import { NotesList } from "../features/notes/components/NotesList";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchNotes } from "../features/notes/api/notesApi";
+import { fetchLabels } from "../features/labels/api/labelsApi"
 
 export const NotesPage = () => {
      const dispatch = useDispatch();
     
       useEffect(() => {
-        dispatch(fetchNotes());
+          dispatch(fetchNotes());
+          dispatch(fetchLabels())
       }, [dispatch]);
     return (
         <div>
