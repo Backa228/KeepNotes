@@ -6,7 +6,7 @@ import labelsReduser from "../features/labels/api/labelsSlice"
 export const store = configureStore({
     reducer: {
         auth: authReducer,
-        notes: notesReducer
+        notes: notesReducer,
         labels: labelsReduser,
     }
 });

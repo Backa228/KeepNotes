@@ -12,7 +12,7 @@ export const NotesList = () => {
         <div className="base-container">
             {isLoading ? (
                 <div className="flex justify-center items-center h-full">
-                    <span className="loading loading-bars loading-lg"></span>
+                    <span className="loading loading-spinner loading-md"></span>
                 </div>
             ) : (
               <div className="columns-[240px] gap-4 w-full">
@@ -21,7 +21,7 @@ export const NotesList = () => {
                 ))}
             </div>      
             )}
-            <span className="loading loading-bars loading-lg"></span>
+            <span className="loading loading-spinner loading-md"></span>
     </div>
     );
 };

@@ -1,16 +1,17 @@
-//tailwind.config.js 
-export default { 
-    content: [ 
-        "./index.html", 
-        "./src/**/*.{js,ts,jsx,tsx}", 
-    ], 
-    theme: {
-        extend: {
-            colors: {
+import daisyui from "daisyui";
+//tailwind.config.js
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+         colors: {
             primarygray: "#757575",
             bgblue: "#F0F4FA",
             text: "#202124",
-            acent: '#FDF0C3',
+            accent: '#FDF0C3',
                 pinkNote: '#FAAFA8',
                 orangeNote: '#F39F76',
                 yellowNote: '#FFF8B8',
@@ -23,7 +24,6 @@ export default {
                 grayNote: '#EFEFF1',
          }
     },
-},
-
-    plugins: [require("daisyui")],
-}
+  },
+  plugins: [daisyui],
+};

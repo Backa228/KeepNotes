@@ -1,4 +1,4 @@
-import { supabase } from " .. / .. / .. /shared/api/supabase";
+import { supabase } from "../../../shared/api/supabase";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 // READ
@@ -22,7 +22,7 @@ export const fetchLabels = createAsyncThunk(
 )
 
 // READ
-export const createLabels = createAsyncThunk(
+export const createLabel = createAsyncThunk(
     "labels/createLabels",
     async ({name, userId}, thunkAPI) => {
         try { 
@@ -32,6 +32,30 @@ export const createLabels = createAsyncThunk(
                     {
                         name,
                         userId: userId
+                    }
+                ])
+                .select()
+            
+            if (error) throw error;
+
+            return data[0]
+
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message);
+        }
+    }
+)
+
+export const addLabelToNote = createAsyncThunk(
+    "labels/addLabelToNote",
+    async ({noteId, labelId}, thunkAPI) => {
+        try { 
+            const { data, error } = await supabase
+                .from("note_labels")
+                .insert([
+                    {
+                        noteId: noteId,
+                        labelId: labelId
                     }
                 ])
                 .select()
