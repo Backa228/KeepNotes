@@ -4,8 +4,12 @@ import { useState } from "react";
 import { Button } from "../../../shared/ui/Button";
 import { MdDelete } from "react-icons/md";
 import { NoteModal } from "./NoteModal";
+import { IoMdMore } from "react-icons/io";
+import { LabelPicker } from "../../labels/components/LabelPicker";
 
 export const NoteCard = ({ note }) => {
+    const [showMenu, setShowMenu] = useState(false)
+
     const dispatch = useDispatch();
 
     const [title, setTitle] = useState(note.title);
@@ -66,9 +70,12 @@ export const NoteCard = ({ note }) => {
                 )}
                 <div className="flex justify-end gap-2" onClick={(e) => e.stopPropagation()}>
                     {/* <Button onClick={() => setIsEditing(true)} variant="icon"><MdEdit size={15}/></Button> */}
+                    <Button onClick={() => setShowMenu(!showMenu)} variant="icon"><IoMdMore size={15} /></Button>
                     <Button onClick={handleDelete} variant="icon"><MdDelete size={15}/></Button>
+                    {showMenu && (
+                        <LabelPicker/>
+                    )}
                 </div>
-                
             </div>      
         </div>
     );

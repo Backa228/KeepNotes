@@ -1,8 +1,8 @@
-import { useSelector, useDispatch } from "react-redux"
-import { selectLabels } from "../api/selectors"
-import { selectUser } from "../auth/api/selectors"
-import { useState } from "react"
-import { createLabel } from "../api/labelsApi"
+import { useSelector, useDispatch } from "react-redux";
+import { selectLabels } from "../api/selectors";
+import { selectUser } from "../../auth/api/selectors";
+import { useState } from "react";
+import { createLabel } from "../api/labelsApi";
 
 export const LabelPicker = () => {
     const labels = useSelector(selectLabels)
@@ -11,7 +11,7 @@ export const LabelPicker = () => {
 
     const [newLabel, setNewLablel] = useState("")
     const handleCreateLabel = () => {
-        if (newLabel.trim()) return
+        if (!newLabel.trim()) return
     
         dispatch(createLabel({
             name: newLabel.trim(),
