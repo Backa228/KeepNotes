@@ -7,7 +7,6 @@ import { NoteModal } from "./NoteModal";
 import { IoMdMore } from "react-icons/io";
 import { LabelPicker } from "../../labels/components/LabelPicker";
 import { NoteMenu } from "./NoteMenu";
-import { updateNoteLabels } from "../../labels/api/labelsApi"
 
 export const NoteCard = ({ note }) => {
     const [showMenu, setShowMenu] = useState(false)
@@ -18,8 +17,6 @@ export const NoteCard = ({ note }) => {
     const [content, setContent] = useState(note.content);
 
     const [isEditing, setIsEditing] = useState(false);
-
-    const [selectedLabels, setSelectedLabels] = useState([])
 
     const handleDelete = () => {
         dispatch(deleteNote(note.id));
@@ -35,13 +32,6 @@ export const NoteCard = ({ note }) => {
         }))
         setIsEditing(false);
     }
-
-    if (!showMenu) {
-        dispatch(updateNoteLabels({
-                noteId: note.id,
-                labelIds: selectedLabels,
-            }))
-        }
 
     return ( 
         <div className="break-inside-avoid mb-2 pb-2">
@@ -85,7 +75,7 @@ export const NoteCard = ({ note }) => {
                     <Button onClick={() => setShowMenu(!showMenu)} variant="icon"><IoMdMore size={15} /></Button>
                     <Button onClick={handleDelete} variant="icon"><MdDelete size={15}/></Button>
                     {showMenu && (
-                        <NoteMenu note={note} selectedLabels={selectedLabels} setSelectedLabels={setSelectedLabels} />
+                        <NoteMenu note={note} onClose={() => setShowMenu(false)} />
                     )}
                 </div>
 

@@ -4,7 +4,7 @@ import { selectUser } from "../../auth/api/selectors";
 import { useState } from "react";
 import { createLabel } from "../api/labelsApi";
 
-export const LabelPicker = (note, selectedLabels, setSelectedLabels) => {
+export const LabelPicker = ({selectedLabels, setSelectedLabels}) => {
     const labels = useSelector(selectLabels);
     const dispatch = useDispatch();
     const user = useSelector(selectUser);

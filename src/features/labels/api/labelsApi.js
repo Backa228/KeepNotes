@@ -75,31 +75,28 @@ export const createLabel = createAsyncThunk(
 // )
 
 export const updateNoteLabels = createAsyncThunk(
-    "labels/addLabelToNote",
-    async ({noteId, labelIds}, thunkAPI) => {
-        try { 
-            if (labelIds.lenght === 0) return []
-
+    "labels/updateNoteLabels",
+    async ({ noteId, labelIds }, thunkAPI) => {
+        try {
+            const { error: deleteError } = await supabase
+                .from("note_labels")
+                .delete()
+                .eq("note_id", noteId);
+            if (deleteError) throw deleteError;
+            if (labelIds.length === 0) return [];
             const rows = labelIds.map(labelId => ({
-                note_Id: noteId,
-                label_Id: labelIds
-            }))
-            
+                note_id: noteId,
+                label_id: labelId,
+            }));
             const { data, error } = await supabase
                 .from("note_labels")
-                .insert([
-                    {
-                       
-                    }
-                ])
-                .select()
-            
+                .insert(rows)
+                .select();
             if (error) throw error;
-
-            return data[0]
-
-        } catch (e) {
+            return data;
+        }
+        catch (e) {
             return thunkAPI.rejectWithValue(e.message);
         }
     }
-)
+);
