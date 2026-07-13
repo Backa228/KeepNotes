@@ -7,7 +7,8 @@ import { NoteModal } from "./NoteModal";
 import { IoMdMore } from "react-icons/io";
 import { LabelPicker } from "../../labels/components/LabelPicker";
 import { NoteMenu } from "./NoteMenu";
-
+import { LabelChip } from "../../labels/components/LabelChip";
+ 
 export const NoteCard = ({ note }) => {
     const [showMenu, setShowMenu] = useState(false)
 
@@ -68,6 +69,13 @@ export const NoteCard = ({ note }) => {
                 {note.content && (
                     <div className="overflow-hidden max-h-[240px]"> 
                         <p className="leading-6 text-gray-700 whitespace-pre-wrap">{note.content}</p>
+                    </div>
+                )}
+                {note.labels && note.labels.length > 0 && (
+                    <div className="flex flex-wrap gap-1">
+                        {note.labels.map(label => (
+                            <LabelChip key={label.id} label={label} />
+                        ))}
                     </div>
                 )}
                 <div className="flex justify-end gap-2" onClick={(e) => e.stopPropagation()}>

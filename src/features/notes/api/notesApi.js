@@ -8,12 +8,20 @@ export const fetchNotes = createAsyncThunk(
         try {
             const { data, error } = await supabase
                 .from("notes")
-                .select("*")
+                .select(`*,
+                    note_labels(
+                        label: labels(id, name)
+                    )`
+                )
                 .order("created_at", { ascending: false });
                 
             if (error) throw error;
+            const notes = data.map(note => ({
+                ...note,
+                labels: note.note_labels.map(item => item.label)
+            }))
 
-            return data;// [ { id, title, content, user_id }, ... ]
+            return notes;// [ { id, title, content, user_id }, ... ]
         }
         catch (e) {
             return thunkAPI.rejectWithValue(e.message);

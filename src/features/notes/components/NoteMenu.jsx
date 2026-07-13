@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux"
 import { LabelPicker } from "../../labels/components/LabelPicker";
 import { Button } from "../../../shared/ui/Button"
 import { updateNoteLabels } from "../../labels/api/labelsApi"
+import { fetchNotes } from "../api/notesApi"
 
 export const NoteMenu = ({ note, onClose }) => {
     const dispatch = useDispatch()
@@ -13,6 +14,16 @@ export const NoteMenu = ({ note, onClose }) => {
 
     const [selectedLabels, setSelectedLabels] = useState([])
 
+    const handleCloseMenu = async () =>
+        dispatch(updateNoteLabels({
+            noteId: note.id,
+            labelIds: selectedLabels,
+        }))
+    dispatch(fetchNotes());
+
+    onClose();
+}
+
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -20,6 +31,7 @@ export const NoteMenu = ({ note, onClose }) => {
                     noteId: note.id,
                     labelIds: selectedLabels,
                 }))
+                dispatch(fetchNotes())
 
                 onClose();
             }
