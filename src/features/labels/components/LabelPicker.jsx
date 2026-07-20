@@ -31,11 +31,11 @@ export const LabelPicker = ({selectedLabels, setSelectedLabels}) => {
     }
 
     return (
-        <div>
-            <div>
-                <h3>Label note</h3>
+        <div className="py-3 ">
+            <h3 className="mb-1 text-md font-semibolt px-3">Label note</h3>
+            <div className="max-h-48 overflow-auto space-y-2">
                 {labels.map((label) => (
-                    <label key={label.id} className="flex items-center gap-2 cursor-pointer">
+                    <label key={label.id} className="flex items-center gap-3 cursor-pointer hover:bg-gray-100 px-3 text-md h-8">
                         <input
                             type="checkbox"
                             checked={selectedLabels.includes(label.id)}

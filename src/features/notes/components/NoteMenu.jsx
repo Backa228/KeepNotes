@@ -14,27 +14,22 @@ export const NoteMenu = ({ note, onClose }) => {
 
     const [selectedLabels, setSelectedLabels] = useState([])
 
-    const handleCloseMenu = async () =>
-        dispatch(updateNoteLabels({
+    const handleCloseMenu = async () => {
+        await dispatch(updateNoteLabels({
             noteId: note.id,
             labelIds: selectedLabels,
-        }))
-    dispatch(fetchNotes());
+        })).unwrap();
+        
+        await dispatch(fetchNotes());
 
-    onClose();
-}
+        onClose();
+    }
 
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
-                dispatch(updateNoteLabels({
-                    noteId: note.id,
-                    labelIds: selectedLabels,
-                }))
-                dispatch(fetchNotes())
-
-                onClose();
-            }
+                handleCloseMenu();
+            } 
         };
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
@@ -42,15 +37,27 @@ export const NoteMenu = ({ note, onClose }) => {
         };
     }, [dispatch, note.id, selectedLabels, onClose]);
 
+
+    useEffect(() => {
+        setSelectedLabels(note.labels?.map(label => label.id) ?? []);
+
+    },[note.labels]);
+
     return (
         <div ref={menuRef} className="
-        bg-white
+        absolute
+        right-0
+        top-10
         w-40
+        rounded-md
+        bg-white
         border
-        border-gray-300
+        border-gray-200
+        shadow-xl
+        overflow-hidden
         z-50">
             {!showPicker?  (
-                <Button onClick={() => setShowPicker(true)} class="w-full">Close</Button>
+                <Button onClick={() => setShowPicker(true)} class="w-full">Add label</Button>
             ) : (
                 <LabelPicker selectedLabels={selectedLabels} setSelectedLabels={setSelectedLabels}/>
             )}

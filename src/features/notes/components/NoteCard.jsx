@@ -35,7 +35,7 @@ export const NoteCard = ({ note }) => {
     }
 
     return ( 
-        <div className="break-inside-avoid mb-2 pb-2">
+        <div className=" relative break-inside-avoid mb-2 pb-2">
             {isEditing && (
                 <NoteModal
                     title={title}
