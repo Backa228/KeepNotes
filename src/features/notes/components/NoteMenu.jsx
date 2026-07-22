@@ -41,23 +41,22 @@ export const NoteMenu = ({ note, onClose }) => {
     useEffect(() => {
         setSelectedLabels(note.labels?.map(label => label.id) ?? []);
 
-    },[note.labels]);
+    }, [note.labels]);
 
     return (
-        <div ref={menuRef} className="
+        <div ref={menuRef}  onClick={(e) => e.stopPropagation()} className="
         absolute
         right-0
-        top-10
-        w-40
+        top-full
+        w-42
         rounded-md
         bg-white
         border
         border-gray-200
         shadow-xl
-        overflow-hidden
         z-50">
             {!showPicker?  (
-                <Button onClick={() => setShowPicker(true)} class="w-full">Add label</Button>
+                <Button onClick={() => setShowPicker(true)} className="w-full">Add label</Button>
             ) : (
                 <LabelPicker selectedLabels={selectedLabels} setSelectedLabels={setSelectedLabels}/>
             )}

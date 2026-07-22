@@ -35,7 +35,7 @@ export const NoteCard = ({ note }) => {
     }
 
     return ( 
-        <div className=" relative break-inside-avoid mb-2 pb-2">
+        <div className="break-inside-avoid mb-2 pb-2">
             {isEditing && (
                 <NoteModal
                     title={title}
@@ -49,6 +49,7 @@ export const NoteCard = ({ note }) => {
             )}
             
             <div className="
+            relative
             flex 
             flex-col 
             gap-3 
@@ -82,11 +83,10 @@ export const NoteCard = ({ note }) => {
                     {/* <Button onClick={() => setIsEditing(true)} variant="icon"><MdEdit size={15}/></Button> */}
                     <Button onClick={() => setShowMenu(!showMenu)} variant="icon"><IoMdMore size={15} /></Button>
                     <Button onClick={handleDelete} variant="icon"><MdDelete size={15}/></Button>
-                    {showMenu && (
-                        <NoteMenu note={note} onClose={() => setShowMenu(false)} />
-                    )}
                 </div>
-
+                {showMenu && (
+                    <NoteMenu note={note} onClose={() => setShowMenu(false)} />
+                )}
             </div>      
         </div>
     );
